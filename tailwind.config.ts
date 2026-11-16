@@ -1,0 +1,49 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        wine: {
+          900: "#32000A",
+          800: "#49000E", // primary brand color
+          700: "#6B111F",
+          600: "#8B182B",
+          100: "#FFDADA",
+          50: "#FFF5F5",
+        },
+        gold: {
+          500: "#C8A35C", // gold accent
+          600: "#B38F46",
+          400: "#D9B875",
+        },
+        cream: {
+          50: "#FCF9F4", // main light background
+          100: "#F6F3EE", // card background
+          200: "#F0EDE9",
+          300: "#EDE8E0",
+          400: "#EBE8E3",
+        },
+        charcoal: {
+          900: "#181A29",
+          800: "#1C1C19",
+          700: "#333333",
+          500: "#564242",
+          400: "#767676",
+        },
+      },
+      fontFamily: {
+        serif: ["Cinzel", "Playfair Display", "Georgia", "serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
