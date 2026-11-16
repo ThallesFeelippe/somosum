@@ -95,7 +95,7 @@ export function ContentComponent({ data }: ContentProps) {
       {/* ===================== NAVBAR ===================== */}
       <header className="sticky top-0 z-50 bg-[#49000E]/95 backdrop-blur-md border-b border-[#6B111F] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo & Title */}
           <div
             onClick={() => scrollToSection("hero")}
             className="flex items-center gap-3 cursor-pointer group"
@@ -163,7 +163,7 @@ export function ContentComponent({ data }: ContentProps) {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={() => scrollToSection("inscricao")}
-              className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-semibold text-sm px-5 py-2.5 rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-semibold text-sm px-6 py-2.5 rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer"
             >
               <span>Inscrever-se</span>
               <ArrowRight className="w-4 h-4" />
@@ -222,7 +222,7 @@ export function ContentComponent({ data }: ContentProps) {
             <div className="pt-2">
               <button
                 onClick={() => scrollToSection("inscricao")}
-                className="w-full bg-[#C8A35C] text-[#49000E] font-bold py-3 rounded-lg text-center shadow-md flex items-center justify-center gap-2"
+                className="w-full bg-[#C8A35C] text-[#49000E] font-bold py-3 rounded-xl text-center shadow-md flex items-center justify-center gap-2"
               >
                 <span>Garantir Minha Vaga Gratuita</span>
                 <ArrowRight className="w-4 h-4" />
@@ -235,63 +235,46 @@ export function ContentComponent({ data }: ContentProps) {
       {/* ===================== HERO SECTION ===================== */}
       <section
         id="hero"
-        className="relative bg-[#49000E] text-white pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden"
+        className="relative bg-[#49000E] text-white pt-10 pb-20 lg:pt-16 lg:pb-28 overflow-hidden"
       >
-        {/* Subtle background decoration */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#C8A35C_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Column: Headline and Call to Actions */}
-            <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            {/* Left Column: Typography & Content */}
+            <div className="lg:col-span-6 flex flex-col justify-center space-y-6">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#6B111F] border border-[#C8A35C]/40 text-[#C8A35C] text-xs sm:text-sm font-semibold tracking-wide">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#6B111F] border border-[#C8A35C]/40 text-[#C8A35C] text-xs sm:text-sm font-semibold tracking-wide w-fit">
                 <Sparkles className="w-4 h-4 text-[#C8A35C]" />
-                <span>{data.event.dates} • Entrada Franca</span>
+                <span>{data.event.edition} • Entrada Franca</span>
               </div>
 
-              {/* Title */}
-              <div className="space-y-2">
-                <span className="text-[#C8A35C] text-sm sm:text-base font-semibold tracking-widest uppercase">
-                  {data.event.edition}
-                </span>
-                <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight">
-                  SOMOS <span className="text-[#C8A35C]">UM</span>
+              {/* Title exact from design */}
+              <div className="space-y-1">
+                <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.08]">
+                  Chegada <br />
+                  é <br />
+                  a hora.
                 </h1>
               </div>
 
-              {/* Theme Verse */}
-              <blockquote className="border-l-4 border-[#C8A35C] pl-4 italic text-sm sm:text-base text-[#EDE8E0]/90 leading-relaxed max-w-xl">
+              {/* Subtitle exact from design */}
+              <p className="text-base sm:text-lg text-[#EDE8E0]/90 leading-relaxed max-w-lg">
+                Um chamado ao serviço do Reino. <br />
+                Venha se juntar a nós para celebrar a fé e adoração.
+              </p>
+
+              {/* Scripture Quote */}
+              <blockquote className="text-sm sm:text-base italic text-[#EDE8E0]/80 max-w-md border-l-2 border-[#C8A35C] pl-4 py-1 leading-relaxed">
                 {data.event.verse}
-                <footer className="text-xs font-semibold text-[#C8A35C] not-italic mt-1">
+                <footer className="not-italic text-xs text-[#C8A35C] font-semibold mt-1">
                   — {data.event.reference}
                 </footer>
               </blockquote>
 
-              {/* Event Quick Info */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-lg pt-2">
-                <div className="flex items-center gap-3 bg-[#6B111F]/70 p-3 rounded-xl border border-[#C8A35C]/20">
-                  <Calendar className="w-5 h-5 text-[#C8A35C] flex-shrink-0" />
-                  <div className="text-xs">
-                    <span className="block text-[#EDE8E0] font-medium">Dias do Evento</span>
-                    <span className="font-semibold text-white">13 a 15 de Dezembro</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 bg-[#6B111F]/70 p-3 rounded-xl border border-[#C8A35C]/20">
-                  <MapPin className="w-5 h-5 text-[#C8A35C] flex-shrink-0" />
-                  <div className="text-xs">
-                    <span className="block text-[#EDE8E0] font-medium">Localização</span>
-                    <span className="font-semibold text-white">Templo Central</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4 w-full sm:w-auto">
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-3">
                 <button
                   onClick={() => scrollToSection("inscricao")}
-                  className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-base px-8 py-4 rounded-xl shadow-xl transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
+                  className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-base px-8 py-4 rounded-xl shadow-xl transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 cursor-pointer"
                 >
                   <span>Garantir Minha Vaga</span>
                   <ArrowRight className="w-5 h-5" />
@@ -299,43 +282,44 @@ export function ContentComponent({ data }: ContentProps) {
 
                 <button
                   onClick={() => scrollToSection("programacao")}
-                  className="bg-transparent hover:bg-white/10 text-[#EDE8E0] border border-[#EDE8E0]/30 font-medium text-base px-6 py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                  className="bg-transparent hover:bg-white/10 text-[#EDE8E0] border border-[#EDE8E0]/30 font-medium text-base px-6 py-4 rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>Ver Cronograma</span>
+                  <span>Ver Informações</span>
                   <ChevronRight className="w-4 h-4 text-[#C8A35C]" />
                 </button>
               </div>
             </div>
 
-            {/* Right Column: Hero Banner Showcase */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Decorative border frame */}
-                <div className="absolute -inset-3 rounded-2xl bg-gradient-to-r from-[#C8A35C] via-[#6B111F] to-[#C8A35C] opacity-50 blur-sm transform -rotate-1" />
+            {/* Right Column: Hero Photo with Floating Card (EXACTLY AS IN USER SCREENSHOT) */}
+            <div className="lg:col-span-6 relative pt-4 sm:pt-0">
+              <div className="relative mx-auto max-w-xl lg:max-w-none">
+                {/* Photo container */}
+                <div className="relative aspect-[4/3] sm:aspect-[5/4] rounded-2xl overflow-hidden shadow-2xl border border-[#6B111F] bg-[#32000A]">
+                  <Image
+                    src={data.event.bannerImage}
+                    alt="Dançarinos Festividade Somos Um"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  {/* Subtle dark gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
-                <div className="relative rounded-2xl overflow-hidden border-2 border-[#C8A35C]/40 bg-[#6B111F] shadow-2xl">
-                  <div className="aspect-[4/3] relative">
-                    <Image
-                      src={data.event.bannerImage}
-                      alt="Festividade Somos Um"
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#49000E] via-transparent to-transparent opacity-80" />
-                  </div>
-
-                  <div className="p-6 bg-[#49000E] text-white space-y-2">
-                    <div className="flex items-center justify-between text-xs text-[#C8A35C] font-semibold">
-                      <span>ENTRADA GRATUITA</span>
-                      <span>VAGAS LIMITADAS</span>
-                    </div>
-                    <h3 className="font-serif text-xl font-bold text-white">
-                      Três noites inesquecíveis na presença de Deus
+                  {/* Floating Cream Card (Exact copy and layout from user screenshot) */}
+                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto sm:max-w-[380px] bg-[#FCF9F4] text-[#49000E] p-5 sm:p-6 rounded-2xl shadow-2xl border border-[#EDE8E0] z-20">
+                    <span className="text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#6B111F] block mb-1">
+                      {data.event.cardTag}
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#49000E] tracking-tight">
+                      {data.event.dates}
                     </h3>
-                    <p className="text-xs text-[#EDE8E0]/80 leading-relaxed">
-                      Convidamos você e sua família para celebrar o encerramento do ano com muita
-                      gratidão, louvor congregacional e comunhão profunda.
+                    <p className="text-xs sm:text-sm font-semibold text-[#49000E] mt-1 flex items-center gap-1.5">
+                      <span>{data.event.churchName}</span>
+                      <span className="text-[#C8A35C] font-bold">•</span>
+                      <span>{data.event.cityState}</span>
+                    </p>
+                    <p className="text-[11px] sm:text-xs text-[#564242] mt-1">
+                      {data.event.datesNotice}
                     </p>
                   </div>
                 </div>
@@ -381,9 +365,10 @@ export function ContentComponent({ data }: ContentProps) {
             </h2>
             <div className="w-16 h-1 bg-[#C8A35C] mx-auto rounded-full" />
             <p className="text-base sm:text-lg text-[#564242] leading-relaxed pt-2">
-              A <strong>Festividade de Dezembro "Somos Um"</strong> nasceu do desejo de reunir todas
-              as gerações da igreja e da comunidade para celebrar a fidelidade de Deus e reafirmar
-              nosso compromisso com o amor fraternal e o serviço mútuo.
+              A <strong>Festividade de Dezembro "Somos Um"</strong> na <strong>Igreja Elohim</strong>{" "}
+              em <strong>Penedo / AL</strong> nasceu do propósito de reunir toda a comunidade para
+              celebrar a fidelidade de Deus e reafirmar nosso compromisso com o amor fraternal, a
+              adoração sincera e o serviço no Reino.
             </p>
           </div>
 
@@ -545,7 +530,9 @@ export function ContentComponent({ data }: ContentProps) {
                     </div>
                     <div className="flex items-center gap-2">
                       <Users className="w-4 h-4 text-[#C8A35C]" />
-                      <span>Ministrante: <strong>{workshop.speaker}</strong></span>
+                      <span>
+                        Ministrante: <strong>{workshop.speaker}</strong>
+                      </span>
                     </div>
                   </div>
 
@@ -554,7 +541,7 @@ export function ContentComponent({ data }: ContentProps) {
                       setFormInput((prev) => ({ ...prev, workshop: workshop.title }));
                       scrollToSection("inscricao");
                     }}
-                    className="w-full bg-[#49000E] hover:bg-[#6B111F] text-white text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 mt-2"
+                    className="w-full bg-[#49000E] hover:bg-[#6B111F] text-white text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 mt-2 cursor-pointer"
                   >
                     <span>Selecionar este Workshop</span>
                     <ArrowRight className="w-3.5 h-3.5 text-[#C8A35C]" />
@@ -574,7 +561,7 @@ export function ContentComponent({ data }: ContentProps) {
               Cronograma Oficial
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#49000E]">
-              Programação Completa dos 3 Dias
+              Programação dos Dias de Celebração
             </h2>
             <div className="w-16 h-1 bg-[#C8A35C] mx-auto rounded-full" />
             <p className="text-sm sm:text-base text-[#564242]">
@@ -589,7 +576,7 @@ export function ContentComponent({ data }: ContentProps) {
                 <button
                   key={day.day}
                   onClick={() => setActiveDayIndex(idx)}
-                  className={`px-4 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all whitespace-nowrap ${
+                  className={`px-4 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all whitespace-nowrap cursor-pointer ${
                     activeDayIndex === idx
                       ? "bg-[#49000E] text-white shadow-md"
                       : "text-[#564242] hover:text-[#49000E]"
@@ -660,7 +647,7 @@ export function ContentComponent({ data }: ContentProps) {
               Vozes Inspiradoras
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#49000E]">
-              Ministrantes & Preletores Convidados
+              Ministrantes & Preletores
             </h2>
             <div className="w-16 h-1 bg-[#C8A35C] mx-auto rounded-full" />
             <p className="text-sm sm:text-base text-[#564242]">
@@ -712,13 +699,13 @@ export function ContentComponent({ data }: ContentProps) {
               </h2>
               <p className="text-sm sm:text-base text-[#EDE8E0]/90 leading-relaxed">
                 As inscrições são gratuitas e servem para prepararmos o crachá de identificação, o
-                kit do congressista e o controle de capacidade do auditório.
+                kit do participante e o controle de capacidade do templo.
               </p>
 
               <div className="space-y-3 pt-2">
                 <div className="flex items-center gap-3 text-xs sm:text-sm text-[#EDE8E0]">
                   <CheckCircle2 className="w-5 h-5 text-[#C8A35C] flex-shrink-0" />
-                  <span>Acesso a todas as plenárias dos 3 dias</span>
+                  <span>Acesso a todas as reuniões dos 3 dias</span>
                 </div>
                 <div className="flex items-center gap-3 text-xs sm:text-sm text-[#EDE8E0]">
                   <CheckCircle2 className="w-5 h-5 text-[#C8A35C] flex-shrink-0" />
@@ -739,7 +726,7 @@ export function ContentComponent({ data }: ContentProps) {
                     Formulário de Confirmação
                   </h3>
                   <p className="text-xs text-[#564242]">
-                    Preencha com seus dados abaixo para receber seu comprovante por e-mail.
+                    Preencha seus dados abaixo para receber os comunicados oficiais e confirmação.
                   </p>
                 </div>
 
@@ -830,7 +817,7 @@ export function ContentComponent({ data }: ContentProps) {
                       <input
                         type="text"
                         name="church"
-                        placeholder="Ex: Templo Central ou Visitante"
+                        placeholder="Ex: Igreja Elohim ou Visitante"
                         value={formInput.church}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 rounded-xl border border-[#EDE8E0] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#49000E]"
@@ -868,8 +855,7 @@ export function ContentComponent({ data }: ContentProps) {
                         className="mt-1 rounded text-[#49000E] focus:ring-[#49000E] border-[#EDE8E0]"
                       />
                       <span className="text-xs text-[#564242] leading-tight">
-                        Concordo em receber as comunicações e o voucher de confirmação do evento no
-                        meu e-mail e WhatsApp.
+                        Concordo em receber as comunicações do evento no meu e-mail e WhatsApp.
                       </span>
                     </label>
                     {formResult?.errors?.acceptTerms && (
@@ -916,15 +902,18 @@ export function ContentComponent({ data }: ContentProps) {
                   Localização do Evento
                 </h3>
                 <p className="text-sm text-[#EDE8E0]/90 leading-relaxed">
-                  O evento será realizado no auditório principal, com estrutura climatizada,
-                  acessibilidade para cadeirantes, estacionamento no local e equipe de acolhimento.
+                  O evento será realizado no templo sede da <strong>Igreja Elohim</strong> em{" "}
+                  <strong>Penedo / AL</strong>, com estrutura acolhedora, ambiente climatizado e
+                  estacionamento para os participantes.
                 </p>
 
                 <div className="space-y-4 pt-2">
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-[#C8A35C] flex-shrink-0 mt-0.5" />
                     <div>
-                      <span className="font-bold text-sm block">{data.event.location}</span>
+                      <span className="font-bold text-sm block">
+                        {data.event.churchName} — {data.event.cityState}
+                      </span>
                       <span className="text-xs text-[#EDE8E0]">{data.event.address}</span>
                     </div>
                   </div>
@@ -932,9 +921,9 @@ export function ContentComponent({ data }: ContentProps) {
                   <div className="flex items-start gap-3">
                     <Calendar className="w-5 h-5 text-[#C8A35C] flex-shrink-0 mt-0.5" />
                     <div>
-                      <span className="font-bold text-sm block">13 a 15 de Dezembro de 2026</span>
+                      <span className="font-bold text-sm block">{data.event.dates}</span>
                       <span className="text-xs text-[#EDE8E0]">
-                        Sexta às 19h30 • Sábado das 09h às 21h • Domingo às 09h30 e 18h
+                        {data.event.datesNotice}
                       </span>
                     </div>
                   </div>
@@ -943,7 +932,7 @@ export function ContentComponent({ data }: ContentProps) {
                 <div className="pt-4">
                   <button
                     onClick={() => scrollToSection("inscricao")}
-                    className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-sm px-6 py-3 rounded-xl shadow-md transition-all inline-flex items-center gap-2"
+                    className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-sm px-6 py-3 rounded-xl shadow-md transition-all inline-flex items-center gap-2 cursor-pointer"
                   >
                     <span>Fazer Inscrição Agora</span>
                     <ArrowRight className="w-4 h-4" />
@@ -951,17 +940,19 @@ export function ContentComponent({ data }: ContentProps) {
                 </div>
               </div>
 
-              {/* Venue Illustration / Visual Side */}
+              {/* Venue Illustration */}
               <div className="lg:col-span-5 bg-[#6B111F] p-8 sm:p-12 flex flex-col justify-center items-center text-center border-t lg:border-t-0 lg:border-l border-[#C8A35C]/20">
                 <div className="w-20 h-20 rounded-2xl bg-[#49000E] border-2 border-[#C8A35C] flex items-center justify-center mb-6 shadow-inner">
                   <MapPin className="w-10 h-10 text-[#C8A35C]" />
                 </div>
-                <h4 className="font-serif text-2xl font-bold text-white mb-2">Estacionamento Livre</h4>
+                <h4 className="font-serif text-2xl font-bold text-white mb-2">
+                  Igreja Elohim
+                </h4>
                 <p className="text-xs text-[#EDE8E0] max-w-xs leading-relaxed mb-6">
-                  Vagas gratuitas para participantes no pátio interno com seguranças e orientadores de trânsito.
+                  Penedo / AL • Portas abertas para receber você e sua família com muito amor.
                 </p>
                 <div className="w-full bg-[#49000E] p-4 rounded-xl border border-[#C8A35C]/30 text-xs text-[#C8A35C] font-semibold">
-                  ✓ Linhas de transporte público com ponto em frente
+                  ✓ Entrada Franca e Acolhimento Especial
                 </div>
               </div>
             </div>
@@ -992,7 +983,7 @@ export function ContentComponent({ data }: ContentProps) {
                 >
                   <button
                     onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                    className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-serif text-base sm:text-lg font-bold text-[#49000E]"
+                    className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-serif text-base sm:text-lg font-bold text-[#49000E] cursor-pointer"
                   >
                     <span className="flex items-center gap-3">
                       <HelpCircle className="w-5 h-5 text-[#C8A35C] flex-shrink-0" />
@@ -1043,8 +1034,7 @@ export function ContentComponent({ data }: ContentProps) {
               </div>
 
               <p className="text-xs text-[#564242] leading-relaxed max-w-sm">
-                Uma festividade dedicada a celebrar a unidade da igreja, a gratidão a Deus e o amor
-                fraternal através do louvor, comunhão e palavra bíblica.
+                Igreja Elohim — Penedo / AL. Uma celebração de fé, unidade e adoração ao nosso Deus.
               </p>
             </div>
 
@@ -1098,25 +1088,25 @@ export function ContentComponent({ data }: ContentProps) {
               </span>
               <div className="space-y-2 text-xs text-[#564242]">
                 <p>
-                  <strong>Data:</strong> 13 a 15 de Dezembro de 2026
+                  <strong>Data:</strong> Dezembro 2026
                 </p>
                 <p>
-                  <strong>Local:</strong> Templo Central — Auditório Principal
+                  <strong>Local:</strong> Igreja Elohim
                 </p>
                 <p>
-                  <strong>Endereço:</strong> Av. Central, 1000 — Centro
+                  <strong>Cidade:</strong> Penedo / AL
                 </p>
                 <p>
-                  <strong>Entrada:</strong> 100% Gratuita (com crachá via inscrição)
+                  <strong>Entrada:</strong> 100% Gratuita
                 </p>
               </div>
             </div>
           </div>
 
           <div className="mt-12 pt-6 border-t border-[#EDE8E0] flex flex-col sm:flex-row items-center justify-between text-xs text-[#767676] gap-4">
-            <p>© 2026 Festividade Somos Um. Todos os direitos reservados.</p>
+            <p>© 2026 Festividade Somos Um • Igreja Elohim. Todos os direitos reservados.</p>
             <p className="flex items-center gap-1">
-              <span>Feito com fé e excelência para visualização</span>
+              <span>Feito para visualização na Vercel</span>
             </p>
           </div>
         </div>

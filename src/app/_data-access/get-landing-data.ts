@@ -44,10 +44,15 @@ export interface LandingData {
   event: {
     name: string;
     edition: string;
-    theme: string;
+    heroTitle: string;
+    heroSubtitle: string;
     verse: string;
     reference: string;
     dates: string;
+    datesNotice: string;
+    cardTag: string;
+    churchName: string;
+    cityState: string;
     location: string;
     address: string;
     bannerImage: string;
@@ -61,17 +66,23 @@ export interface LandingData {
 }
 
 export async function getLandingData(): Promise<LandingData> {
-  // Simulando Data Access Layer server-side conforme padrão de arquitetura
   return {
     event: {
       name: "Somos Um",
       edition: "Festividade de Dezembro",
-      theme: "Unidade, Fé e Renovação",
-      verse: "“Para que todos sejam um, como tu, ó Pai, o és em mim, e eu, em ti; que também eles sejam um em nós, para que o mundo creia que tu me enviaste.”",
-      reference: "João 17:21",
-      dates: "13 a 15 de Dezembro de 2026",
-      location: "Templo Central — Auditório Principal",
-      address: "Av. Central, 1000 — Centro",
+      heroTitle: "Chegada é a hora.",
+      heroSubtitle:
+        "Um chamado ao serviço do Reino. Venha se juntar a nós para celebrar a fé e adoração.",
+      verse:
+        "“...chegada é a hora, e o Filho do Homem é entregue nas mãos dos pecadores.”",
+      reference: "Marcos 14:41",
+      dates: "Dezembro 2026",
+      datesNotice: "Dia e horário serão divulgados em breve.",
+      cardTag: "PREPARE O CORAÇÃO",
+      churchName: "Igreja Elohim",
+      cityState: "Penedo / AL",
+      location: "Igreja Elohim — Templo Sede",
+      address: "Penedo — Alagoas / AL",
       bannerImage: "/assets/hero-banner.jpg",
       logoImage: "/assets/logo.png",
     },
@@ -80,7 +91,7 @@ export async function getLandingData(): Promise<LandingData> {
         id: "adoracao",
         title: "Louvor & Adoração Intensa",
         description:
-          "Momentos únicos de celebração e adoração congregacional com corais, orquestra e ministração ao vivo.",
+          "Momentos de celebração e adoração congregacional, dança ministerial e louvor ao vivo.",
         image: "/assets/highlight-1.jpg",
         tag: "Espiritualidade",
       },
@@ -88,15 +99,15 @@ export async function getLandingData(): Promise<LandingData> {
         id: "palavra",
         title: "Palavra Transformadora",
         description:
-          "Mensagens bíblicas profundas e práticas para fortalecer a sua fé, sua família e sua caminhada com Deus.",
+          "Mensagens bíblicas centradas nas Escrituras para fortalecer a sua fé e sua família.",
         image: "/assets/highlight-2.jpg",
         tag: "Edificação",
       },
       {
         id: "comunhao",
-        title: "Comunhão & Integração",
+        title: "Comunhão & Unidade",
         description:
-          "Três dias de reencontros, fraternidade e fortalecimento dos laços que nos unem como uma só família.",
+          "Celebrando a unidade do corpo de Cristo: uma só fé, um só coração, um só propósito.",
         image: "/assets/highlight-3.jpg",
         tag: "Unidade",
       },
@@ -106,7 +117,7 @@ export async function getLandingData(): Promise<LandingData> {
         id: "ws-1",
         title: "Liderança de Serviço & Unidade",
         description:
-          "Capacitação prática para voluntários, líderes ministeriais e servos focados em edificar vidas com amor e excelência.",
+          "Capacitação para voluntários e servos focados em edificar vidas com amor e excelência.",
         speaker: "Pr. Marcos Aurélio",
         time: "Sábado, às 10h00",
         location: "Sala Multiuso A",
@@ -117,10 +128,10 @@ export async function getLandingData(): Promise<LandingData> {
         id: "ws-2",
         title: "Nova Geração com Propósito",
         description:
-          "Abordagem dinâmica para jovens e adolescentes viverem a fé com relevância e autenticidade nos dias de hoje.",
+          "Abordagem dinâmica para jovens e adolescentes viverem a fé com relevância e autenticidade.",
         speaker: "Pr. Daniel Carvalho",
         time: "Sábado, às 14h30",
-        location: "Auditório das Crianças & Jovens",
+        location: "Auditório dos Jovens",
         image: "/assets/workshop-2.jpg",
         tags: ["Juventude", "Missões", "Vocação"],
       },
@@ -128,19 +139,19 @@ export async function getLandingData(): Promise<LandingData> {
     schedule: [
       {
         day: "Sexta-feira",
-        date: "13 de Dezembro",
+        date: "Dezembro 2026",
         title: "Abertura Oficial e Consagração",
         items: [
           {
             time: "18h30",
-            title: "Recepção & Credenciamento",
-            description: "Acolhimento especial com entrega de crachás e kits do participante.",
+            title: "Recepção & Acolhimento",
+            description: "Recepção com entrega de crachás e credenciamento dos participantes.",
             location: "Hall de Entrada",
           },
           {
             time: "19h30",
             title: "Culto Solene de Abertura: 'Somos Um'",
-            description: "Entrada das bandeiras, louvor com grande coral e mensagem inaugural.",
+            description: "Abertura oficial com ministração de dança, coral e palavra inaugural.",
             location: "Nave Principal",
             badge: "Abertura Oficial",
           },
@@ -148,8 +159,8 @@ export async function getLandingData(): Promise<LandingData> {
       },
       {
         day: "Sábado",
-        date: "14 de Dezembro",
-        title: "Workshops, Comunhão e Grande Celebração",
+        date: "Dezembro 2026",
+        title: "Workshops, Comunhão e Celebração",
         items: [
           {
             time: "09h00",
@@ -160,14 +171,14 @@ export async function getLandingData(): Promise<LandingData> {
           {
             time: "10h30",
             title: "Workshops Temáticos Simultâneos",
-            description: "Salas de liderança, família, adoração e nova geração.",
-            location: "Salas do 1º Andar",
+            description: "Capacitação em liderança, adoração e juventude.",
+            location: "Salas de Treinamento",
             badge: "Workshops",
           },
           {
             time: "19h00",
-            title: "Grande Noite de Louvor & Testemunhos",
-            description: "Noite marcada por ministração de louvor, oração e palavra profética.",
+            title: "Grande Noite de Louvor & Adoração",
+            description: "Noite de clamor, ministração profética e testemunhos inspiradores.",
             location: "Nave Principal",
             badge: "Destaque",
           },
@@ -175,7 +186,7 @@ export async function getLandingData(): Promise<LandingData> {
       },
       {
         day: "Domingo",
-        date: "15 de Dezembro",
+        date: "Dezembro 2026",
         title: "Encerramento e Gratidão",
         items: [
           {
@@ -187,10 +198,10 @@ export async function getLandingData(): Promise<LandingData> {
           },
           {
             time: "18h00",
-            title: "Culto Festivo de Encerramento",
+            title: "Grande Culto Festivo de Encerramento",
             description: "Ação de graças pelas vitórias do ano e proclamação para o novo tempo.",
             location: "Nave Principal",
-            badge: "Grande Encerramento",
+            badge: "Encerramento",
           },
         ],
       },
@@ -198,46 +209,46 @@ export async function getLandingData(): Promise<LandingData> {
     speakers: [
       {
         name: "Pr. Marcos Aurélio",
-        role: "Pastor Presidente & Preletor Oficial",
-        church: "Igreja Central",
+        role: "Pastor Presidente & Preletor",
+        church: "Igreja Elohim",
         image: "/assets/speaker-1.jpg",
-        bio: "Mais de 25 anos dedicados ao ensino bíblico, edificação de famílias e liderança pastoral.",
+        bio: "Dedicado ao ensino bíblico, edificação de famílias e pastoreio da Igreja Elohim em Penedo / AL.",
       },
       {
         name: "Pra. Helena Silveira",
-        role: "Ministra de Adoração & Escritora",
+        role: "Ministra de Adoração & Dança",
         church: "Ministério Vozes de Sião",
         image: "/assets/speaker-2.jpg",
-        bio: "Conferencista internacional e líder de louvor apaixonada por inspirar uma adoração genuína.",
+        bio: "Líder de ministério e apaixonada por inspirar uma adoração genuína e viva.",
       },
       {
         name: "Pr. Daniel Carvalho",
-        role: "Líder de Juventude & Conferencista",
+        role: "Líder de Juventude & Missões",
         church: "Movimento Um Propósito",
         image: "/assets/speaker-3.jpg",
-        bio: "Dedicado a mobilizar jovens cristãos para o serviço social, missões e transformação cultural.",
+        bio: "Mobilizando jovens cristãos para o serviço social, discipulado e missões.",
       },
     ],
     faqs: [
       {
         question: "A participação no evento é gratuita?",
         answer:
-          "Sim! A entrada em todas as plenárias principais é totalmente livre e gratuita. Recomendamos apenas preencher o formulário de inscrição antecipado para garantir sua vaga e crachá de identificação.",
+          "Sim! A entrada em todas as plenárias principais é totalmente livre e gratuita. Recomendamos preencher o formulário para garantir sua vaga e crachá de identificação.",
       },
       {
-        question: "Haverá ministério infantil (espaço kids)?",
+        question: "Onde será realizado o evento?",
         answer:
-          "Sim! Teremos uma equipe dedicada e segura para cuidar e ministrar às crianças de 2 a 10 anos durante todas as reuniões noturnas.",
+          "Na Igreja Elohim em Penedo / AL. O endereço completo e as orientações de trânsito estão disponíveis na seção Local.",
       },
       {
-        question: "Posso convidar amigos e familiares que não são membros?",
+        question: "Haverá espaço para crianças?",
         answer:
-          "Com certeza! O 'Somos Um' é um evento aberto a toda a comunidade e familiares. Todos são muito bem-vindos.",
+          "Sim! Teremos o Espaço Kids com monitores dedicados durante as reuniões noturnas.",
       },
       {
-        question: "Haverá transmissão online?",
+        question: "Quando serão divulgados os dias exatos e horários?",
         answer:
-          "Os cultos noturnos serão transmitidos ao vivo em nosso canal oficial no YouTube para quem não puder comparecer presencialmente.",
+          "A programação detalhada com dias e horários definitivos de Dezembro 2026 será enviada diretamente para o e-mail e WhatsApp de todos os inscritos.",
       },
     ],
   };
