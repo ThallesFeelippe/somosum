@@ -93,16 +93,16 @@ export function ContentComponent({ data }: ContentProps) {
             onClick={() => scrollToSection("hero")}
             className="flex flex-col cursor-pointer group"
           >
-            <span className="font-serif text-2xl sm:text-3xl font-bold tracking-widest text-white group-hover:text-[#C8A35C] transition-colors">
+            <span className="font-serif text-2xl sm:text-3xl font-bold tracking-widest text-white group-hover:text-[#C8A35C] transition-colors leading-none">
               {data.nav.title}
             </span>
-            <span className="text-[9px] sm:text-[10px] tracking-[0.25em] text-[#EDE8E0] font-sans font-medium uppercase mt-0.5">
+            <span className="text-[10px] sm:text-[11px] tracking-[0.22em] text-[#C8A35C] font-sans font-semibold uppercase mt-1.5 leading-none">
               {data.nav.subtitle}
             </span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-sans text-[#FCF9F4]/90 font-normal">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-sans text-[#FCF9F4] font-normal">
             <button
               onClick={() => scrollToSection("grupo")}
               className="hover:text-[#C8A35C] transition-colors cursor-pointer"
@@ -130,14 +130,14 @@ export function ContentComponent({ data }: ContentProps) {
           </nav>
 
           {/* Right Action & Church Seal */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-5">
             <button
               onClick={() => scrollToSection("agenda")}
-              className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-lg shadow-md transition-all cursor-pointer"
+              className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-xs uppercase tracking-wider px-7 py-3 rounded-lg shadow-md transition-all cursor-pointer"
             >
               {data.nav.buttonText}
             </button>
-            <div className="relative w-11 h-11 flex-shrink-0">
+            <div className="relative w-16 h-14 flex-shrink-0">
               <Image
                 src={data.nav.logoImage}
                 alt="Emblema Igreja Elohim"
@@ -150,7 +150,7 @@ export function ContentComponent({ data }: ContentProps) {
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-3">
-            <div className="relative w-8 h-8 flex-shrink-0">
+            <div className="relative w-12 h-10 flex-shrink-0">
               <Image
                 src={data.nav.logoImage}
                 alt="Emblema Igreja Elohim"
@@ -952,10 +952,10 @@ export function ContentComponent({ data }: ContentProps) {
             {/* Col 1: Logo & Manifesto Quote */}
             <div className="md:col-span-4 space-y-4">
               <div>
-                <span className="font-serif text-2xl font-bold tracking-widest text-[#49000E] block">
+                <span className="font-serif text-2xl font-bold tracking-widest text-[#49000E] block leading-none">
                   SOMOS UM
                 </span>
-                <span className="text-[9px] tracking-[0.25em] text-[#767676] uppercase font-sans font-medium block">
+                <span className="text-[10px] tracking-[0.22em] text-[#C8A35C] uppercase font-sans font-semibold block mt-1.5 leading-none">
                   DANÇA TEATRAL • IGREJA ELOHIM
                 </span>
               </div>
