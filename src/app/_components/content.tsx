@@ -137,13 +137,21 @@ export function ContentComponent({ data }: ContentProps) {
             >
               {data.nav.buttonText}
             </button>
-            <div className="relative w-16 h-14 flex-shrink-0">
-              <Image
+            <div className="relative w-[100px] h-[55px] flex-shrink-0">
+              <img
                 src={data.nav.logoImage}
                 alt="Emblema Igreja Elohim"
-                fill
-                className="object-contain"
-                priority
+                style={{
+                  position: "absolute",
+                  height: "100px",
+                  width: "100px",
+                  left: 0,
+                  top: "-27px",
+                  right: 0,
+                  bottom: 0,
+                  color: "transparent",
+                  objectFit: "contain",
+                }}
               />
             </div>
           </div>
