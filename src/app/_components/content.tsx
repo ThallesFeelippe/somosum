@@ -3,22 +3,15 @@
 import { useState } from "react";
 import Image from "next/image";
 import {
-  Calendar,
-  Clock,
-  MapPin,
   Menu,
   X,
   CheckCircle2,
   ChevronRight,
-  Sparkles,
-  Users,
-  Heart,
-  BookOpen,
   ArrowRight,
-  ShieldCheck,
-  Send,
-  HelpCircle,
-  ChevronDown,
+  Mail,
+  Phone,
+  Clock,
+  Play,
 } from "lucide-react";
 import { LandingData } from "../_data-access/get-landing-data";
 import { registerLead, RegisterInput, RegisterResult } from "../_actions/register-lead";
@@ -29,8 +22,6 @@ interface ContentProps {
 
 export function ContentComponent({ data }: ContentProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDayIndex, setActiveDayIndex] = useState(0);
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   // Form state
   const [formInput, setFormInput] = useState<RegisterInput>({
@@ -38,9 +29,10 @@ export function ContentComponent({ data }: ContentProps) {
     email: "",
     phone: "",
     church: "",
-    workshop: "",
+    workshop: "Dança Contemporânea / Clássica",
     acceptTerms: true,
   });
+  const [videoLink, setVideoLink] = useState("");
   const [formLoading, setFormLoading] = useState(false);
   const [formResult, setFormResult] = useState<RegisterResult | null>(null);
 
@@ -68,9 +60,10 @@ export function ContentComponent({ data }: ContentProps) {
           email: "",
           phone: "",
           church: "",
-          workshop: "",
+          workshop: "Dança Contemporânea / Clássica",
           acceptTerms: true,
         });
+        setVideoLink("");
       }
     } catch {
       setFormResult({
@@ -93,139 +86,127 @@ export function ContentComponent({ data }: ContentProps) {
   return (
     <div className="min-h-screen flex flex-col bg-[#FCF9F4] text-[#181A29]">
       {/* ===================== NAVBAR ===================== */}
-      <header className="sticky top-0 z-50 bg-[#49000E]/95 backdrop-blur-md border-b border-[#6B111F] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          {/* Logo & Title */}
+      <header className="sticky top-0 z-50 bg-[#49000E] border-b border-[#6B111F] text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+          {/* Logo & Subtitle */}
           <div
             onClick={() => scrollToSection("hero")}
-            className="flex items-center gap-3 cursor-pointer group"
+            className="flex flex-col cursor-pointer group"
           >
-            <div className="relative w-12 h-12 flex-shrink-0">
-              <Image
-                src="/assets/logo.png"
-                alt="Logo Somos Um"
-                fill
-                className="object-contain drop-shadow"
-                priority
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-serif text-xl sm:text-2xl font-bold tracking-wider text-[#C8A35C] group-hover:text-amber-200 transition-colors">
-                SOMOS UM
-              </span>
-              <span className="text-[10px] sm:text-xs text-[#EDE8E0] tracking-widest uppercase">
-                Festividade de Dezembro
-              </span>
-            </div>
+            <span className="font-serif text-2xl sm:text-3xl font-bold tracking-widest text-white group-hover:text-[#C8A35C] transition-colors">
+              {data.nav.title}
+            </span>
+            <span className="text-[9px] sm:text-[10px] tracking-[0.25em] text-[#EDE8E0] font-sans font-medium uppercase mt-0.5">
+              {data.nav.subtitle}
+            </span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#EDE8E0]">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-sans text-[#FCF9F4]/90 font-normal">
             <button
-              onClick={() => scrollToSection("sobre")}
-              className="hover:text-[#C8A35C] transition-colors"
+              onClick={() => scrollToSection("grupo")}
+              className="hover:text-[#C8A35C] transition-colors cursor-pointer"
             >
-              Sobre
+              O grupo
             </button>
             <button
-              onClick={() => scrollToSection("destaques")}
-              className="hover:text-[#C8A35C] transition-colors"
+              onClick={() => scrollToSection("proposito")}
+              className="hover:text-[#C8A35C] transition-colors cursor-pointer"
             >
-              Destaques
+              Nosso propósito
             </button>
             <button
-              onClick={() => scrollToSection("workshops")}
-              className="hover:text-[#C8A35C] transition-colors"
+              onClick={() => scrollToSection("obras")}
+              className="hover:text-[#C8A35C] transition-colors cursor-pointer"
             >
-              Workshops
+              Obras
             </button>
             <button
-              onClick={() => scrollToSection("programacao")}
-              className="hover:text-[#C8A35C] transition-colors"
+              onClick={() => scrollToSection("contato")}
+              className="hover:text-[#C8A35C] transition-colors cursor-pointer"
             >
-              Programação
-            </button>
-            <button
-              onClick={() => scrollToSection("preletores")}
-              className="hover:text-[#C8A35C] transition-colors"
-            >
-              Preletores
-            </button>
-            <button
-              onClick={() => scrollToSection("local")}
-              className="hover:text-[#C8A35C] transition-colors"
-            >
-              Local
+              Contato
             </button>
           </nav>
 
-          {/* Action CTA */}
+          {/* Right Action & Church Seal */}
           <div className="hidden md:flex items-center gap-4">
             <button
-              onClick={() => scrollToSection("inscricao")}
-              className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-semibold text-sm px-6 py-2.5 rounded-full shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer"
+              onClick={() => scrollToSection("agenda")}
+              className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-lg shadow-md transition-all cursor-pointer"
             >
-              <span>Inscrever-se</span>
-              <ArrowRight className="w-4 h-4" />
+              {data.nav.buttonText}
             </button>
+            <div className="relative w-11 h-11 flex-shrink-0">
+              <Image
+                src={data.nav.logoImage}
+                alt="Emblema Igreja Elohim"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-white hover:text-[#C8A35C] focus:outline-none"
-            aria-label="Abrir menu"
-          >
-            {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
-          </button>
+          <div className="flex md:hidden items-center gap-3">
+            <div className="relative w-8 h-8 flex-shrink-0">
+              <Image
+                src={data.nav.logoImage}
+                alt="Emblema Igreja Elohim"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-white hover:text-[#C8A35C] focus:outline-none"
+              aria-label="Abrir menu"
+            >
+              {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-[#49000E] border-b border-[#6B111F] px-4 pt-2 pb-6 space-y-3 shadow-2xl">
             <button
-              onClick={() => scrollToSection("sobre")}
-              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50"
+              onClick={() => scrollToSection("grupo")}
+              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50 font-sans"
             >
-              Sobre o Evento
+              O grupo
             </button>
             <button
-              onClick={() => scrollToSection("destaques")}
-              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50"
+              onClick={() => scrollToSection("proposito")}
+              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50 font-sans"
             >
-              Destaques
+              Nosso propósito
             </button>
             <button
-              onClick={() => scrollToSection("workshops")}
-              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50"
+              onClick={() => scrollToSection("obras")}
+              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50 font-sans"
             >
-              Workshops
+              Obras
             </button>
             <button
-              onClick={() => scrollToSection("programacao")}
-              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50"
+              onClick={() => scrollToSection("agenda")}
+              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50 font-sans"
             >
-              Programação
+              Agenda
             </button>
             <button
-              onClick={() => scrollToSection("preletores")}
-              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50"
+              onClick={() => scrollToSection("contato")}
+              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50 font-sans"
             >
-              Preletores
-            </button>
-            <button
-              onClick={() => scrollToSection("local")}
-              className="block w-full text-left py-2 text-[#EDE8E0] hover:text-[#C8A35C] border-b border-[#6B111F]/50"
-            >
-              Local & Informações
+              Contato
             </button>
             <div className="pt-2">
               <button
-                onClick={() => scrollToSection("inscricao")}
-                className="w-full bg-[#C8A35C] text-[#49000E] font-bold py-3 rounded-xl text-center shadow-md flex items-center justify-center gap-2"
+                onClick={() => scrollToSection("agenda")}
+                className="w-full bg-[#C8A35C] text-[#49000E] font-bold text-xs uppercase py-3 rounded-lg text-center shadow"
               >
-                <span>Garantir Minha Vaga Gratuita</span>
-                <ArrowRight className="w-4 h-4" />
+                {data.nav.buttonText}
               </button>
             </div>
           </div>
@@ -235,91 +216,79 @@ export function ContentComponent({ data }: ContentProps) {
       {/* ===================== HERO SECTION ===================== */}
       <section
         id="hero"
-        className="relative bg-[#49000E] text-white pt-10 pb-20 lg:pt-16 lg:pb-28 overflow-hidden"
+        className="relative bg-[#49000E] text-white pt-10 pb-16 lg:pt-14 lg:pb-24 overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Column: Typography & Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            {/* Left Content */}
             <div className="lg:col-span-6 flex flex-col justify-center space-y-6">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#6B111F] border border-[#C8A35C]/40 text-[#C8A35C] text-xs sm:text-sm font-semibold tracking-wide w-fit">
-                <Sparkles className="w-4 h-4 text-[#C8A35C]" />
-                <span>{data.event.edition} • Entrada Franca</span>
-              </div>
+              {/* Top Tag */}
+              <span className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] uppercase text-[#EDE8E0]/70 block">
+                {data.hero.tag}
+              </span>
 
-              {/* Title exact from design */}
-              <div className="space-y-1">
-                <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.08]">
-                  Chegada <br />
-                  é <br />
-                  a hora.
-                </h1>
-              </div>
+              {/* Main Headline */}
+              <h1 className="font-serif text-5xl sm:text-6xl lg:text-[76px] font-normal text-white tracking-tight leading-[1.05]">
+                {data.hero.titleLine1} <br />
+                {data.hero.titleLine2}
+              </h1>
 
-              {/* Subtitle exact from design */}
-              <p className="text-base sm:text-lg text-[#EDE8E0]/90 leading-relaxed max-w-lg">
-                Um chamado ao serviço do Reino. <br />
-                Venha se juntar a nós para celebrar a fé e adoração.
+              {/* Subtitle */}
+              <p className="text-sm sm:text-base text-[#EDE8E0]/90 leading-relaxed max-w-lg font-sans">
+                {data.hero.subtitle}
               </p>
 
+              {/* Gold Button & Note */}
+              <div className="space-y-2 pt-1">
+                <button
+                  onClick={() => scrollToSection("proposito")}
+                  className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-xs tracking-widest uppercase px-7 py-3.5 rounded-lg shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer block"
+                >
+                  {data.hero.buttonText}
+                </button>
+                <span className="text-xs text-[#EDE8E0]/70 font-sans block">
+                  {data.hero.buttonNote}
+                </span>
+              </div>
+
               {/* Scripture Quote */}
-              <blockquote className="text-sm sm:text-base italic text-[#EDE8E0]/80 max-w-md border-l-2 border-[#C8A35C] pl-4 py-1 leading-relaxed">
-                {data.event.verse}
-                <footer className="not-italic text-xs text-[#C8A35C] font-semibold mt-1">
-                  — {data.event.reference}
-                </footer>
-              </blockquote>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-3">
-                <button
-                  onClick={() => scrollToSection("inscricao")}
-                  className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-base px-8 py-4 rounded-xl shadow-xl transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 cursor-pointer"
-                >
-                  <span>Garantir Minha Vaga</span>
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-
-                <button
-                  onClick={() => scrollToSection("programacao")}
-                  className="bg-transparent hover:bg-white/10 text-[#EDE8E0] border border-[#EDE8E0]/30 font-medium text-base px-6 py-4 rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>Ver Informações</span>
-                  <ChevronRight className="w-4 h-4 text-[#C8A35C]" />
-                </button>
+              <div className="space-y-2 pt-4 max-w-lg border-t border-[#6B111F]/60">
+                <p className="font-serif italic text-lg sm:text-xl text-white/95 leading-snug">
+                  {data.hero.verse}
+                </p>
+                <span className="text-[11px] font-bold tracking-wider text-[#C8A35C] uppercase block">
+                  {data.hero.reference}
+                </span>
               </div>
             </div>
 
-            {/* Right Column: Hero Photo with Floating Card (EXACTLY AS IN USER SCREENSHOT) */}
+            {/* Right Photo with Floating Card (EXACTLY AS IN DESIGN) */}
             <div className="lg:col-span-6 relative pt-4 sm:pt-0">
-              <div className="relative mx-auto max-w-xl lg:max-w-none">
+              <div className="relative mx-auto max-w-lg lg:max-w-none">
                 {/* Photo container */}
-                <div className="relative aspect-[4/3] sm:aspect-[5/4] rounded-2xl overflow-hidden shadow-2xl border border-[#6B111F] bg-[#32000A]">
+                <div className="relative aspect-[4/3] sm:aspect-[5/4] lg:aspect-[1/1] rounded-2xl overflow-hidden shadow-2xl bg-[#32000A] border border-[#6B111F]">
                   <Image
-                    src={data.event.bannerImage}
-                    alt="Dançarinos Festividade Somos Um"
+                    src={data.hero.bannerImage}
+                    alt="Dançarinos Grupo Somos Um"
                     fill
                     className="object-cover"
                     priority
                   />
-                  {/* Subtle dark gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Floating Cream Card (Exact copy and layout from user screenshot) */}
-                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto sm:max-w-[380px] bg-[#FCF9F4] text-[#49000E] p-5 sm:p-6 rounded-2xl shadow-2xl border border-[#EDE8E0] z-20">
-                    <span className="text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#6B111F] block mb-1">
-                      {data.event.cardTag}
+                  {/* Floating Card */}
+                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 bg-[#FCF9F4] text-[#49000E] p-6 sm:p-7 rounded-2xl shadow-2xl border border-[#EDE8E0] z-20">
+                    <span className="text-[11px] font-bold tracking-widest uppercase text-[#564242] block mb-1">
+                      {data.hero.card.tag}
                     </span>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#49000E] tracking-tight">
-                      {data.event.dates}
+                    <h3 className="font-serif text-3xl sm:text-4xl font-bold text-[#49000E] tracking-tight">
+                      {data.hero.card.title}
                     </h3>
-                    <p className="text-xs sm:text-sm font-semibold text-[#49000E] mt-1 flex items-center gap-1.5">
-                      <span>{data.event.churchName}</span>
-                      <span className="text-[#C8A35C] font-bold">•</span>
-                      <span>{data.event.cityState}</span>
+                    <p className="text-sm font-semibold text-[#49000E] mt-1 flex items-center gap-1.5">
+                      <span>{data.hero.card.church}</span>
+                      <span className="text-[#C8A35C]">•</span>
+                      <span>{data.hero.card.cityState}</span>
                     </p>
-                    <p className="text-[11px] sm:text-xs text-[#564242] mt-1">
-                      {data.event.datesNotice}
+                    <p className="text-xs text-[#564242] mt-1 font-sans">
+                      {data.hero.card.notice}
                     </p>
                   </div>
                 </div>
@@ -329,134 +298,159 @@ export function ContentComponent({ data }: ContentProps) {
         </div>
       </section>
 
-      {/* ===================== QUICK NUMBERS / COUNTERS ===================== */}
-      <section className="bg-[#32000A] text-white py-8 border-b border-[#6B111F]">
+      {/* ===================== METRICS STRIP ===================== */}
+      <section className="bg-[#49000E] text-white border-t border-b border-[#C8A35C]/30 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="space-y-1">
-              <span className="font-serif text-3xl sm:text-4xl font-bold text-[#C8A35C]">3</span>
-              <p className="text-xs sm:text-sm text-[#EDE8E0]">Dias de Celebração</p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#6B111F] gap-2">
+            <h2 className="font-serif text-xl sm:text-2xl text-white font-normal">
+              {data.metricsHeader.title}
+            </h2>
+            <span className="text-xs tracking-[0.25em] text-[#C8A35C] uppercase font-sans font-semibold">
+              {data.metricsHeader.tags}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6">
+            {data.metrics.map((m, idx) => (
+              <div key={idx} className="space-y-1">
+                <span className="font-serif text-4xl sm:text-5xl font-normal text-[#C8A35C]">
+                  {m.value}
+                </span>
+                <p className="text-xs font-bold text-white tracking-wider uppercase">
+                  {m.label}
+                </p>
+                <p className="text-[11px] text-[#EDE8E0]/70 font-sans">{m.sub}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===================== PURPOSE & MANIFESTO SECTION ===================== */}
+      <section id="proposito" className="py-20 bg-[#FCF9F4]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+          {/* Top Quote Box with Left Border */}
+          <div className="border-l-4 border-[#49000E] pl-6 sm:pl-8 py-2 max-w-4xl space-y-3">
+            <span className="text-xs font-bold tracking-widest text-[#49000E] uppercase block">
+              {data.purpose.quoteTag}
+            </span>
+            <blockquote className="font-serif italic text-2xl sm:text-3xl text-[#49000E] leading-relaxed">
+              {data.purpose.quoteText}
+            </blockquote>
+            <span className="text-xs font-semibold text-[#564242] tracking-wider uppercase block">
+              {data.purpose.quoteAuthor}
+            </span>
+          </div>
+
+          {/* Two Columns */}
+          <div id="grupo" className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            {/* Left Column */}
+            <div className="lg:col-span-6 space-y-6">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#49000E] uppercase tracking-wide">
+                {data.purpose.leftTitle}
+              </h2>
+              {data.purpose.leftParagraphs.map((para, i) => (
+                <p key={i} className="text-sm sm:text-base text-[#564242] leading-relaxed font-sans">
+                  {para}
+                </p>
+              ))}
             </div>
-            <div className="space-y-1">
-              <span className="font-serif text-3xl sm:text-4xl font-bold text-[#C8A35C]">+1.000</span>
-              <p className="text-xs sm:text-sm text-[#EDE8E0]">Vagas Disponíveis</p>
-            </div>
-            <div className="space-y-1">
-              <span className="font-serif text-3xl sm:text-4xl font-bold text-[#C8A35C]">2</span>
-              <p className="text-xs sm:text-sm text-[#EDE8E0]">Workshops Especiais</p>
-            </div>
-            <div className="space-y-1">
-              <span className="font-serif text-3xl sm:text-4xl font-bold text-[#C8A35C]">100%</span>
-              <p className="text-xs sm:text-sm text-[#EDE8E0]">Acesso Gratuito</p>
+
+            {/* Right Card */}
+            <div className="lg:col-span-6">
+              <div className="bg-[#F6F3EE] p-8 sm:p-10 rounded-2xl border border-[#EDE8E0] space-y-6">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#49000E] uppercase tracking-wide">
+                  {data.purpose.rightCard.title}
+                </h3>
+                <p className="text-sm text-[#564242] leading-relaxed font-sans">
+                  {data.purpose.rightCard.text}
+                </p>
+
+                {/* Inner Quote Card */}
+                <div className="bg-[#EDE8E0]/70 p-5 rounded-xl space-y-2 border border-[#EDE8E0]">
+                  <span className="text-[10px] font-bold tracking-widest text-[#49000E] uppercase block">
+                    {data.purpose.rightCard.quoteTitle}
+                  </span>
+                  <p className="font-serif italic text-sm text-[#49000E] leading-relaxed">
+                    {data.purpose.rightCard.quoteText}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 text-xs font-bold text-[#49000E] uppercase tracking-wider">
+                  <span>{data.purpose.rightCard.groupName}</span>
+                  <span className="text-[#564242] font-normal">
+                    {data.purpose.rightCard.location}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===================== ABOUT SECTION ===================== */}
-      <section id="sobre" className="py-20 bg-[#F6F3EE]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#49000E] bg-[#FFDADA] px-3.5 py-1 rounded-full">
-              Sobre a Festividade
+      {/* ===================== PILLARS (3 CARDS) ===================== */}
+      <section className="py-20 bg-[#F6F3EE]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <span className="text-xs font-bold tracking-widest uppercase text-[#49000E]">
+              {data.pillars.tag}
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#49000E]">
-              O que nos une é maior do que qualquer diferença
+            <h2 className="font-serif text-4xl sm:text-5xl font-normal text-[#49000E]">
+              {data.pillars.title}
             </h2>
-            <div className="w-16 h-1 bg-[#C8A35C] mx-auto rounded-full" />
-            <p className="text-base sm:text-lg text-[#564242] leading-relaxed pt-2">
-              A <strong>Festividade de Dezembro "Somos Um"</strong> na <strong>Igreja Elohim</strong>{" "}
-              em <strong>Penedo / AL</strong> nasceu do propósito de reunir toda a comunidade para
-              celebrar a fidelidade de Deus e reafirmar nosso compromisso com o amor fraternal, a
-              adoração sincera e o serviço no Reino.
+            <div className="w-12 h-0.5 bg-[#49000E] mx-auto" />
+            <p className="text-sm text-[#564242] font-sans pt-1">
+              {data.pillars.subtitle}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#EDE8E0] space-y-4 hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-[#49000E] text-[#C8A35C] flex items-center justify-center">
-                <Heart className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[#49000E]">Comunhão Fraternal</h3>
-              <p className="text-sm text-[#564242] leading-relaxed">
-                Um espaço preparado com carinho para fortalecer relacionamentos, fazer novos amigos e
-                celebrar a vida como membros da mesma família de fé.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#EDE8E0] space-y-4 hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-[#49000E] text-[#C8A35C] flex items-center justify-center">
-                <BookOpen className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[#49000E]">Alimento Espiritual</h3>
-              <p className="text-sm text-[#564242] leading-relaxed">
-                Mensagens bíblicas centradas em Cristo, trazendo esperança, cura e direção prática
-                para os desafios cotidianos do novo ano que se aproxima.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[#EDE8E0] space-y-4 hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-[#49000E] text-[#C8A35C] flex items-center justify-center">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[#49000E]">Todas as Gerações</h3>
-              <p className="text-sm text-[#564242] leading-relaxed">
-                Crianças, jovens, adultos e idosos adorando juntos. Um evento planejado com
-                atividades e acolhimento para toda a sua família.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===================== HIGHLIGHTS SECTION ===================== */}
-      <section id="destaques" className="py-20 bg-[#FCF9F4]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#49000E] bg-[#FFDADA] px-3.5 py-1 rounded-full">
-              Pilares do Evento
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#49000E]">
-              O que você vai viver no Somos Um
-            </h2>
-            <div className="w-16 h-1 bg-[#C8A35C] mx-auto rounded-full" />
-            <p className="text-sm sm:text-base text-[#564242]">
-              Três dias estruturados para proporcionar um encontro genuíno com Deus e com o próximo.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {data.highlights.map((highlight) => (
+            {data.pillars.items.map((p) => (
               <div
-                key={highlight.id}
-                className="bg-white rounded-2xl overflow-hidden border border-[#EDE8E0] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+                key={p.number}
+                className={`rounded-2xl overflow-hidden border shadow-sm flex flex-col justify-between transition-all hover:shadow-xl ${
+                  p.isDark
+                    ? "bg-[#49000E] text-white border-[#6B111F]"
+                    : "bg-white text-[#181A29] border-[#EDE8E0]"
+                }`}
               >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={highlight.image}
-                    alt={highlight.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-3 left-3 bg-[#49000E] text-[#C8A35C] text-xs font-bold px-3 py-1 rounded-full shadow">
-                    {highlight.tag}
-                  </div>
+                <div className="p-6 pb-0 flex items-center justify-between text-xs font-bold tracking-widest uppercase">
+                  <span className={p.isDark ? "text-[#C8A35C]" : "text-[#49000E]"}>
+                    {p.number}
+                  </span>
+                  <span className={p.isDark ? "text-white/80" : "text-[#767676]"}>
+                    {p.category}
+                  </span>
                 </div>
 
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2">
-                    <h3 className="font-serif text-xl font-bold text-[#49000E] group-hover:text-[#6B111F] transition-colors">
-                      {highlight.title}
-                    </h3>
-                    <p className="text-sm text-[#564242] leading-relaxed">
-                      {highlight.description}
-                    </p>
+                <div className="p-6 space-y-4">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden">
+                    <Image src={p.image} alt={p.title} fill className="object-cover" />
                   </div>
 
-                  <div className="pt-2 flex items-center text-xs font-bold text-[#C8A35C]">
-                    <span>Experiência Inclusa</span>
-                    <CheckCircle2 className="w-4 h-4 ml-1.5 text-emerald-600" />
-                  </div>
+                  <h3
+                    className={`font-serif text-xl sm:text-2xl font-bold ${
+                      p.isDark ? "text-white" : "text-[#49000E]"
+                    }`}
+                  >
+                    {p.title}
+                  </h3>
+
+                  <p
+                    className={`text-xs sm:text-sm leading-relaxed font-sans ${
+                      p.isDark ? "text-[#EDE8E0]/90" : "text-[#564242]"
+                    }`}
+                  >
+                    {p.description}
+                  </p>
+                </div>
+
+                <div
+                  className={`px-6 pb-6 pt-2 text-[11px] font-bold tracking-wider uppercase ${
+                    p.isDark ? "text-[#C8A35C]" : "text-[#49000E]"
+                  }`}
+                >
+                  {p.tag}
                 </div>
               </div>
             ))}
@@ -464,88 +458,54 @@ export function ContentComponent({ data }: ContentProps) {
         </div>
       </section>
 
-      {/* ===================== WORKSHOPS SECTION ===================== */}
-      <section id="workshops" className="py-20 bg-[#F0EDE9]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#49000E] bg-[#FFDADA] px-3.5 py-1 rounded-full">
-              Capacitação & Prática
+      {/* ===================== REPERTOIRE (OBRAS) ===================== */}
+      <section id="obras" className="py-20 bg-[#FCF9F4]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="space-y-1">
+            <span className="text-xs font-bold tracking-widest uppercase text-[#49000E] block">
+              {data.repertoire.tag}
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#49000E]">
-              Workshops Temáticos Especiais
+            <h2 className="font-serif text-4xl sm:text-5xl font-normal text-[#49000E]">
+              {data.repertoire.title}
             </h2>
-            <div className="w-16 h-1 bg-[#C8A35C] mx-auto rounded-full" />
-            <p className="text-sm sm:text-base text-[#564242]">
-              Sessões práticas e interativas no sábado para aprofundar temas essenciais para sua vida e vocação.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {data.workshops.map((workshop) => (
+            {data.repertoire.works.map((w, idx) => (
               <div
-                key={workshop.id}
-                className="bg-white rounded-2xl overflow-hidden border border-[#EDE8E0] shadow-sm hover:shadow-lg transition-all flex flex-col md:flex-row"
+                key={idx}
+                className="bg-white rounded-2xl overflow-hidden border border-[#EDE8E0] shadow-sm flex flex-col justify-between"
               >
-                <div className="relative md:w-2/5 aspect-[4/3] md:aspect-auto">
-                  <Image
-                    src={workshop.image}
-                    alt={workshop.title}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute top-3 left-3 bg-[#49000E] text-white text-[11px] font-bold px-2.5 py-1 rounded-md">
-                    Workshop
+                <div>
+                  <div className="relative aspect-[16/9]">
+                    <Image src={w.image} alt={w.title} fill className="object-cover" />
+                    <div className="absolute top-4 left-4 bg-[#49000E] text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded">
+                      {w.badge}
+                    </div>
+                  </div>
+
+                  <div className="p-8 space-y-4">
+                    <span className="text-[11px] font-bold tracking-wider uppercase text-[#767676] block">
+                      {w.category}
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#49000E]">
+                      {w.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#564242] leading-relaxed font-sans">
+                      {w.description}
+                    </p>
                   </div>
                 </div>
 
-                <div className="p-6 md:w-3/5 flex flex-col justify-between space-y-4">
-                  <div className="space-y-3">
-                    <div className="flex flex-wrap gap-1.5">
-                      {workshop.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="bg-[#EDE8E0] text-[#49000E] text-[10px] font-semibold px-2 py-0.5 rounded"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <h3 className="font-serif text-xl font-bold text-[#49000E]">
-                      {workshop.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#564242] leading-relaxed">
-                      {workshop.description}
-                    </p>
-                  </div>
-
-                  <div className="space-y-2 pt-2 border-t border-[#EDE8E0] text-xs text-[#564242]">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-[#C8A35C]" />
-                      <span>{workshop.time}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-[#C8A35C]" />
-                      <span>{workshop.location}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-[#C8A35C]" />
-                      <span>
-                        Ministrante: <strong>{workshop.speaker}</strong>
-                      </span>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      setFormInput((prev) => ({ ...prev, workshop: workshop.title }));
-                      scrollToSection("inscricao");
-                    }}
-                    className="w-full bg-[#49000E] hover:bg-[#6B111F] text-white text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 mt-2 cursor-pointer"
-                  >
-                    <span>Selecionar este Workshop</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#C8A35C]" />
-                  </button>
+                <div className="px-8 pb-8 flex flex-wrap gap-2">
+                  {w.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="bg-[#F6F3EE] text-[#49000E] text-[11px] font-semibold px-3 py-1 rounded-md border border-[#EDE8E0]"
+                    >
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </div>
             ))}
@@ -553,295 +513,308 @@ export function ContentComponent({ data }: ContentProps) {
         </div>
       </section>
 
-      {/* ===================== SCHEDULE SECTION ===================== */}
-      <section id="programacao" className="py-20 bg-[#FCF9F4]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#49000E] bg-[#FFDADA] px-3.5 py-1 rounded-full">
-              Cronograma Oficial
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#49000E]">
-              Programação dos Dias de Celebração
-            </h2>
-            <div className="w-16 h-1 bg-[#C8A35C] mx-auto rounded-full" />
-            <p className="text-sm sm:text-base text-[#564242]">
-              Fique por dentro de cada reunião e venha participar de cada momento especial conosco.
-            </p>
-          </div>
-
-          {/* Day Selector Tabs */}
-          <div className="flex justify-center mb-10">
-            <div className="inline-flex p-1.5 rounded-xl bg-[#EDE8E0] max-w-full overflow-x-auto">
-              {data.schedule.map((day, idx) => (
-                <button
-                  key={day.day}
-                  onClick={() => setActiveDayIndex(idx)}
-                  className={`px-4 sm:px-6 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all whitespace-nowrap cursor-pointer ${
-                    activeDayIndex === idx
-                      ? "bg-[#49000E] text-white shadow-md"
-                      : "text-[#564242] hover:text-[#49000E]"
-                  }`}
-                >
-                  <span className="block">{day.day}</span>
-                  <span className="text-[10px] font-normal opacity-80">{day.date}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Active Day Content */}
-          <div className="max-w-3xl mx-auto bg-white p-6 sm:p-10 rounded-2xl border border-[#EDE8E0] shadow-sm">
-            <div className="mb-8 border-b border-[#EDE8E0] pb-4">
-              <span className="text-xs font-bold text-[#C8A35C] uppercase tracking-wider">
-                {data.schedule[activeDayIndex].day} • {data.schedule[activeDayIndex].date}
+      {/* ===================== AGENDA ===================== */}
+      <section id="agenda" className="py-20 bg-[#F6F3EE]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#EDE8E0] pb-6">
+            <div>
+              <span className="text-xs font-bold tracking-widest uppercase text-[#49000E] block">
+                {data.agenda.tag}
               </span>
-              <h3 className="font-serif text-2xl font-bold text-[#49000E] mt-1">
-                {data.schedule[activeDayIndex].title}
-              </h3>
+              <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#49000E] mt-1">
+                {data.agenda.title}
+              </h2>
             </div>
-
-            <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-[#EDE8E0]">
-              {data.schedule[activeDayIndex].items.map((item, i) => (
-                <div key={i} className="relative flex items-start gap-6 pl-2">
-                  <div className="w-4 h-4 rounded-full bg-[#49000E] border-4 border-white shadow-sm flex-shrink-0 mt-1.5 z-10" />
-
-                  <div className="flex-1 bg-[#FCF9F4] p-5 rounded-xl border border-[#EDE8E0] space-y-2">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#49000E] bg-white px-2.5 py-1 rounded-md border border-[#EDE8E0]">
-                        <Clock className="w-3.5 h-3.5 text-[#C8A35C]" />
-                        {item.time}
-                      </span>
-
-                      {item.badge && (
-                        <span className="text-[10px] font-bold uppercase bg-[#FFDADA] text-[#49000E] px-2 py-0.5 rounded-full">
-                          {item.badge}
-                        </span>
-                      )}
-                    </div>
-
-                    <h4 className="font-serif text-lg font-bold text-[#49000E]">
-                      {item.title}
-                    </h4>
-
-                    <p className="text-xs sm:text-sm text-[#564242] leading-relaxed">
-                      {item.description}
-                    </p>
-
-                    <div className="flex items-center gap-1 text-[11px] text-[#767676] pt-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#C8A35C]" />
-                      <span>{item.location}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===================== SPEAKERS SECTION ===================== */}
-      <section id="preletores" className="py-20 bg-[#F6F3EE]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#49000E] bg-[#FFDADA] px-3.5 py-1 rounded-full">
-              Vozes Inspiradoras
+            <span className="text-xs font-bold tracking-wider uppercase text-[#564242]">
+              {data.agenda.nextNotice}
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#49000E]">
-              Ministrantes & Preletores
-            </h2>
-            <div className="w-16 h-1 bg-[#C8A35C] mx-auto rounded-full" />
-            <p className="text-sm sm:text-base text-[#564242]">
-              Líderes comprometidos com o ensino das Sagradas Escrituras e com o coração voltado ao avivamento.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {data.speakers.map((speaker) => (
-              <div
-                key={speaker.name}
-                className="bg-white p-6 rounded-2xl border border-[#EDE8E0] shadow-sm text-center flex flex-col items-center space-y-4 hover:shadow-lg transition-all"
-              >
-                <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-[#C8A35C]/50 shadow-md">
-                  <Image
-                    src={speaker.image}
-                    alt={speaker.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <h3 className="font-serif text-lg font-bold text-[#49000E]">{speaker.name}</h3>
-                  <p className="text-xs font-semibold text-[#C8A35C]">{speaker.role}</p>
-                  <p className="text-[11px] text-[#767676]">{speaker.church}</p>
-                </div>
-
-                <p className="text-xs text-[#564242] leading-relaxed italic">
-                  "{speaker.bio}"
+          {/* Featured Upcoming Card (Wine) */}
+          <div className="bg-[#49000E] text-white rounded-2xl p-8 sm:p-10 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div className="flex items-center gap-6">
+              <div className="border-r border-[#6B111F] pr-6">
+                <span className="font-serif text-4xl sm:text-5xl font-bold text-[#C8A35C] block">
+                  {data.agenda.featured.month}
+                </span>
+                <span className="text-sm font-semibold tracking-widest text-[#EDE8E0]">
+                  {data.agenda.featured.year}
+                </span>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold tracking-widest text-[#C8A35C] uppercase block">
+                  {data.agenda.featured.tag}
+                </span>
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white">
+                  {data.agenda.featured.title}
+                </h3>
+                <p className="text-sm text-[#EDE8E0] font-semibold">
+                  {data.agenda.featured.church}
+                </p>
+                <p className="text-xs text-[#EDE8E0]/70 font-sans">
+                  {data.agenda.featured.notice}
                 </p>
               </div>
+            </div>
+
+            <button
+              onClick={() => scrollToSection("inscricao")}
+              className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-lg shadow transition-all cursor-pointer whitespace-nowrap"
+            >
+              QUERO PARTICIPAR
+            </button>
+          </div>
+
+          {/* Past Presentations */}
+          <div className="space-y-4 pt-4">
+            <span className="text-xs font-bold tracking-widest uppercase text-[#767676] block">
+              APRESENTAÇÕES ANTERIORES
+            </span>
+
+            {data.agenda.pastPresentations.map((p, idx) => (
+              <div
+                key={idx}
+                className="bg-white p-6 rounded-xl border border-[#EDE8E0] flex flex-col md:flex-row md:items-center justify-between gap-6"
+              >
+                <div className="flex items-start sm:items-center gap-6">
+                  <div className="min-w-[90px]">
+                    <span className="font-serif text-2xl font-bold text-[#49000E] block">
+                      {p.date}
+                    </span>
+                    <span className="text-[10px] font-bold text-[#767676] uppercase">
+                      {p.dayTime}
+                    </span>
+                  </div>
+
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-bold tracking-wider uppercase text-[#767676] block">
+                      {p.churchCity}
+                    </span>
+                    <h4 className="font-serif text-lg font-bold text-[#49000E]">{p.venue}</h4>
+                    <p className="text-xs text-[#564242] font-sans">{p.detail}</p>
+                  </div>
+                </div>
+
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#49000E] hover:bg-[#6B111F] text-white text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg text-center transition-colors inline-block"
+                >
+                  VER OBRA NO INSTAGRAM
+                </a>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===================== REGISTRATION FORM SECTION ===================== */}
-      <section id="inscricao" className="py-20 bg-[#49000E] text-white relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Form Info Left */}
+      {/* ===================== TESTIMONIALS ===================== */}
+      <section className="py-20 bg-[#FCF9F4]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <span className="text-xs font-bold tracking-widest uppercase text-[#49000E]">
+              {data.testimonials.tag}
+            </span>
+            <h2 className="font-serif text-4xl sm:text-5xl font-normal text-[#49000E]">
+              {data.testimonials.title}
+            </h2>
+            <div className="w-12 h-0.5 bg-[#49000E] mx-auto" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {data.testimonials.items.map((t, idx) => (
+              <div
+                key={idx}
+                className="bg-white p-8 rounded-2xl border border-[#EDE8E0] shadow-sm flex flex-col justify-between space-y-6"
+              >
+                <div className="space-y-4">
+                  <span className="font-serif text-4xl text-[#C8A35C] leading-none block">“</span>
+                  <p className="font-serif italic text-base text-[#49000E] leading-relaxed">
+                    {t.quote}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 pt-4 border-t border-[#EDE8E0]">
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#C8A35C] flex-shrink-0">
+                    <Image src={t.image} alt={t.name} fill className="object-cover" />
+                  </div>
+                  <div>
+                    <h4 className="font-serif text-sm font-bold text-[#49000E]">{t.name}</h4>
+                    <p className="text-[11px] text-[#767676] font-sans">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===================== AUDITION / REGISTRATION FORM ===================== */}
+      <section id="inscricao" className="py-20 bg-[#F6F3EE]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            {/* Left Info */}
             <div className="lg:col-span-5 space-y-6">
-              <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#C8A35C] bg-[#6B111F] px-3.5 py-1 rounded-full border border-[#C8A35C]/30">
-                Inscrição Gratuita
+              <span className="text-xs font-bold tracking-widest uppercase text-[#49000E] block">
+                {data.audition.tag}
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                Garanta o seu lugar na Festividade
+              <h2 className="font-serif text-4xl sm:text-5xl font-normal text-[#49000E] leading-tight">
+                Faça parte desta <br />
+                história de fé
               </h2>
-              <p className="text-sm sm:text-base text-[#EDE8E0]/90 leading-relaxed">
-                As inscrições são gratuitas e servem para prepararmos o crachá de identificação, o
-                kit do participante e o controle de capacidade do templo.
+              <div className="w-12 h-0.5 bg-[#49000E]" />
+
+              <p className="text-sm text-[#564242] leading-relaxed font-sans">
+                {data.audition.text}
               </p>
 
               <div className="space-y-3 pt-2">
-                <div className="flex items-center gap-3 text-xs sm:text-sm text-[#EDE8E0]">
-                  <CheckCircle2 className="w-5 h-5 text-[#C8A35C] flex-shrink-0" />
-                  <span>Acesso a todas as reuniões dos 3 dias</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs sm:text-sm text-[#EDE8E0]">
-                  <CheckCircle2 className="w-5 h-5 text-[#C8A35C] flex-shrink-0" />
-                  <span>Opção de participação em workshops temáticos</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs sm:text-sm text-[#EDE8E0]">
-                  <CheckCircle2 className="w-5 h-5 text-[#C8A35C] flex-shrink-0" />
-                  <span>Espaço Kids monitorado para crianças</span>
-                </div>
+                {data.audition.requirements.map((req, i) => (
+                  <div key={i} className="flex items-start gap-2.5 text-xs text-[#564242] font-sans">
+                    <CheckCircle2 className="w-4 h-4 text-[#49000E] flex-shrink-0 mt-0.5" />
+                    <span>{req}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* How to participate box */}
+              <div className="p-5 rounded-xl border border-[#49000E]/30 bg-white/70 space-y-1.5">
+                <span className="text-[10px] font-bold tracking-widest text-[#49000E] uppercase block">
+                  COMO PARTICIPAR
+                </span>
+                <p className="text-xs text-[#564242] font-sans leading-relaxed">
+                  {data.audition.howToApply}
+                </p>
               </div>
             </div>
 
-            {/* Registration Card Right */}
+            {/* Right Form Card */}
             <div className="lg:col-span-7">
-              <div className="bg-[#FCF9F4] text-[#181A29] p-6 sm:p-10 rounded-3xl shadow-2xl border border-[#EDE8E0]">
-                <div className="mb-6 space-y-1">
-                  <h3 className="font-serif text-2xl font-bold text-[#49000E]">
-                    Formulário de Confirmação
+              <div className="bg-white p-8 sm:p-10 rounded-2xl shadow-xl border-t-4 border-[#49000E] space-y-6">
+                <div className="space-y-1">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#49000E]">
+                    Quero servir com meus dons
                   </h3>
-                  <p className="text-xs text-[#564242]">
-                    Preencha seus dados abaixo para receber os comunicados oficiais e confirmação.
-                  </p>
+                  <span className="text-[10px] font-bold tracking-widest text-[#767676] uppercase block">
+                    CONTE UM POUCO SOBRE VOCÊ
+                  </span>
                 </div>
 
                 {formResult && (
                   <div
-                    className={`p-4 rounded-xl mb-6 text-sm flex items-start gap-3 ${
+                    className={`p-4 rounded-lg text-sm flex items-start gap-2.5 ${
                       formResult.success
                         ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
                         : "bg-rose-50 text-rose-800 border border-rose-200"
                     }`}
                   >
-                    {formResult.success ? (
-                      <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                    ) : (
-                      <ShieldCheck className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
-                    )}
-                    <div>
-                      <p className="font-semibold">{formResult.message}</p>
-                    </div>
+                    <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                    <p className="font-semibold">{formResult.message}</p>
                   </div>
                 )}
 
-                <form onSubmit={handleFormSubmit} className="space-y-4">
-                  {/* Name */}
+                <form onSubmit={handleFormSubmit} className="space-y-5">
+                  {/* Nome Completo */}
                   <div>
-                    <label className="block text-xs font-semibold text-[#49000E] mb-1">
-                      Nome Completo *
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#49000E] mb-1">
+                      NOME COMPLETO
                     </label>
                     <input
                       type="text"
                       name="name"
                       required
-                      placeholder="Ex: Gabriel Santos da Silva"
+                      placeholder="Ex.: Gabriel Vasconcelos Ribeiro"
                       value={formInput.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border border-[#EDE8E0] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#49000E]"
+                      className="w-full pb-2 pt-1 border-b border-[#767676]/40 bg-transparent text-sm text-[#181A29] focus:outline-none focus:border-[#49000E]"
                     />
-                    {formResult?.errors?.name && (
-                      <p className="text-xs text-rose-600 mt-1">{formResult.errors.name[0]}</p>
-                    )}
                   </div>
 
-                  {/* Email & Phone */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Email & Telefone */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-semibold text-[#49000E] mb-1">
-                        E-mail *
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-[#49000E] mb-1">
+                        E-MAIL DE CONTATO
                       </label>
                       <input
                         type="email"
                         name="email"
                         required
-                        placeholder="seuemail@exemplo.com"
+                        placeholder="gabriel@arteecristo.com.br"
                         value={formInput.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-[#EDE8E0] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#49000E]"
+                        className="w-full pb-2 pt-1 border-b border-[#767676]/40 bg-transparent text-sm text-[#181A29] focus:outline-none focus:border-[#49000E]"
                       />
-                      {formResult?.errors?.email && (
-                        <p className="text-xs text-rose-600 mt-1">{formResult.errors.email[0]}</p>
-                      )}
                     </div>
-
                     <div>
-                      <label className="block text-xs font-semibold text-[#49000E] mb-1">
-                        WhatsApp / Celular *
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-[#49000E] mb-1">
+                        WHATSAPP / TELEFONE
                       </label>
                       <input
                         type="tel"
                         name="phone"
                         required
-                        placeholder="(00) 90000-0000"
+                        placeholder="(11) 98765-4321"
                         value={formInput.phone}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-[#EDE8E0] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#49000E]"
+                        className="w-full pb-2 pt-1 border-b border-[#767676]/40 bg-transparent text-sm text-[#181A29] focus:outline-none focus:border-[#49000E]"
                       />
-                      {formResult?.errors?.phone && (
-                        <p className="text-xs text-rose-600 mt-1">{formResult.errors.phone[0]}</p>
-                      )}
                     </div>
                   </div>
 
-                  {/* Church & Workshop Selection */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Igreja & Área de vocação */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-semibold text-[#49000E] mb-1">
-                        Igreja / Congregação
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-[#49000E] mb-1">
+                        IGREJA LOCAL & CIDADE
                       </label>
                       <input
                         type="text"
                         name="church"
-                        placeholder="Ex: Igreja Elohim ou Visitante"
+                        placeholder="Ex.: Igreja Presbiteriana Unida • SP"
                         value={formInput.church}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-[#EDE8E0] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#49000E]"
+                        className="w-full pb-2 pt-1 border-b border-[#767676]/40 bg-transparent text-sm text-[#181A29] focus:outline-none focus:border-[#49000E]"
                       />
                     </div>
-
                     <div>
-                      <label className="block text-xs font-semibold text-[#49000E] mb-1">
-                        Workshop de Interesse
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-[#49000E] mb-1">
+                        ÁREA DE VOCAÇÃO PRIMÁRIA
                       </label>
                       <select
                         name="workshop"
                         value={formInput.workshop}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-[#EDE8E0] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#49000E]"
+                        className="w-full pb-2 pt-1 border-b border-[#767676]/40 bg-transparent text-sm text-[#181A29] focus:outline-none focus:border-[#49000E]"
                       >
-                        <option value="">Nenhum / Apenas Cultos</option>
-                        {data.workshops.map((ws) => (
-                          <option key={ws.id} value={ws.title}>
-                            {ws.title}
-                          </option>
-                        ))}
+                        <option value="Dança Contemporânea / Clássica">
+                          Dança Contemporânea / Clássica
+                        </option>
+                        <option value="Teatro & Expressão Corporal">
+                          Teatro & Expressão Corporal
+                        </option>
+                        <option value="Produção & Bastidores">Produção & Bastidores</option>
+                        <option value="Música & Trilha">Música & Trilha</option>
                       </select>
                     </div>
+                  </div>
+
+                  {/* Link de vídeo */}
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#49000E] mb-1">
+                      LINK DE VÍDEO / PORTFÓLIO (YOUTUBE, VIMEO OU DRIVE)
+                    </label>
+                    <input
+                      type="url"
+                      placeholder="https://vimeo.com/seuvideo-solo"
+                      value={videoLink}
+                      onChange={(e) => setVideoLink(e.target.value)}
+                      className="w-full pb-2 pt-1 border-b border-[#767676]/40 bg-transparent text-sm text-[#181A29] focus:outline-none focus:border-[#49000E]"
+                    />
+                    <span className="text-[11px] text-[#767676] font-sans mt-1 block">
+                      Grave um solo de até 3 minutos com movimentos livres ou peça clássica.
+                    </span>
                   </div>
 
                   {/* Terms Checkbox */}
@@ -852,32 +825,28 @@ export function ContentComponent({ data }: ContentProps) {
                         name="acceptTerms"
                         checked={formInput.acceptTerms}
                         onChange={handleInputChange}
-                        className="mt-1 rounded text-[#49000E] focus:ring-[#49000E] border-[#EDE8E0]"
+                        className="mt-0.5 rounded text-[#49000E] focus:ring-[#49000E]"
                       />
-                      <span className="text-xs text-[#564242] leading-tight">
-                        Concordo em receber as comunicações do evento no meu e-mail e WhatsApp.
+                      <span className="text-xs text-[#564242] leading-relaxed font-sans">
+                        Declaro que comungo com o estatuto doutrinário e a disciplina ministerial da
+                        Companhia Somos Um.
                       </span>
                     </label>
-                    {formResult?.errors?.acceptTerms && (
-                      <p className="text-xs text-rose-600 mt-1">
-                        {formResult.errors.acceptTerms[0]}
-                      </p>
-                    )}
                   </div>
 
                   {/* Submit Button */}
-                  <div className="pt-3">
+                  <div className="pt-2">
                     <button
                       type="submit"
                       disabled={formLoading}
-                      className="w-full bg-[#49000E] hover:bg-[#6B111F] text-white font-bold py-4 rounded-xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer"
+                      className="w-full bg-[#49000E] hover:bg-[#6B111F] text-white font-bold text-xs uppercase tracking-widest py-4 rounded-lg shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
                     >
                       {formLoading ? (
-                        <span>Processando sua inscrição...</span>
+                        <span>ENVIANDO...</span>
                       ) : (
                         <>
-                          <Send className="w-4 h-4 text-[#C8A35C]" />
-                          <span>Confirmar Inscrição Gratuita</span>
+                          <span>ENVIAR MINHA INSCRIÇÃO</span>
+                          <Play className="w-3.5 h-3.5 fill-current text-white ml-1" />
                         </>
                       )}
                     </button>
@@ -889,225 +858,176 @@ export function ContentComponent({ data }: ContentProps) {
         </div>
       </section>
 
-      {/* ===================== LOCATION / VENUE SECTION ===================== */}
-      <section id="local" className="py-20 bg-[#FCF9F4]">
+      {/* ===================== CHURCH INVITATION & CONTACT ===================== */}
+      <section id="contato" className="py-20 bg-[#49000E] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#49000E] rounded-3xl overflow-hidden shadow-xl text-white">
-            <div className="grid grid-cols-1 lg:grid-cols-12">
-              <div className="lg:col-span-7 p-8 sm:p-12 space-y-6">
-                <span className="text-xs font-bold tracking-widest uppercase text-[#C8A35C] bg-[#6B111F] px-3.5 py-1 rounded-full border border-[#C8A35C]/30">
-                  Como Chegar
-                </span>
-                <h3 className="font-serif text-3xl sm:text-4xl font-bold text-white">
-                  Localização do Evento
-                </h3>
-                <p className="text-sm text-[#EDE8E0]/90 leading-relaxed">
-                  O evento será realizado no templo sede da <strong>Igreja Elohim</strong> em{" "}
-                  <strong>Penedo / AL</strong>, com estrutura acolhedora, ambiente climatizado e
-                  estacionamento para os participantes.
-                </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left Content */}
+            <div className="lg:col-span-7 space-y-6">
+              <span className="text-xs font-bold tracking-widest uppercase text-[#C8A35C] block">
+                {data.invite.tag}
+              </span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white leading-tight">
+                {data.invite.title}
+              </h2>
+              <p className="text-sm sm:text-base text-[#EDE8E0]/90 leading-relaxed max-w-xl font-sans">
+                {data.invite.text}
+              </p>
 
-                <div className="space-y-4 pt-2">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-[#C8A35C] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-bold text-sm block">
-                        {data.event.churchName} — {data.event.cityState}
-                      </span>
-                      <span className="text-xs text-[#EDE8E0]">{data.event.address}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Calendar className="w-5 h-5 text-[#C8A35C] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-bold text-sm block">{data.event.dates}</span>
-                      <span className="text-xs text-[#EDE8E0]">
-                        {data.event.datesNotice}
-                      </span>
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 border-t border-[#6B111F]">
+                <div>
+                  <span className="text-[11px] font-bold tracking-wider text-[#C8A35C] uppercase block mb-1">
+                    RIDER TÉCNICO
+                  </span>
+                  <p className="text-xs text-[#EDE8E0]/80 font-sans">{data.invite.techRider}</p>
                 </div>
-
-                <div className="pt-4">
-                  <button
-                    onClick={() => scrollToSection("inscricao")}
-                    className="bg-[#C8A35C] hover:bg-[#b38f46] text-[#49000E] font-bold text-sm px-6 py-3 rounded-xl shadow-md transition-all inline-flex items-center gap-2 cursor-pointer"
-                  >
-                    <span>Fazer Inscrição Agora</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                <div>
+                  <span className="text-[11px] font-bold tracking-wider text-[#C8A35C] uppercase block mb-1">
+                    LOGÍSTICA ÁGIL
+                  </span>
+                  <p className="text-xs text-[#EDE8E0]/80 font-sans">{data.invite.logistics}</p>
                 </div>
-              </div>
-
-              {/* Venue Illustration */}
-              <div className="lg:col-span-5 bg-[#6B111F] p-8 sm:p-12 flex flex-col justify-center items-center text-center border-t lg:border-t-0 lg:border-l border-[#C8A35C]/20">
-                <div className="w-20 h-20 rounded-2xl bg-[#49000E] border-2 border-[#C8A35C] flex items-center justify-center mb-6 shadow-inner">
-                  <MapPin className="w-10 h-10 text-[#C8A35C]" />
-                </div>
-                <h4 className="font-serif text-2xl font-bold text-white mb-2">
-                  Igreja Elohim
-                </h4>
-                <p className="text-xs text-[#EDE8E0] max-w-xs leading-relaxed mb-6">
-                  Penedo / AL • Portas abertas para receber você e sua família com muito amor.
-                </p>
-                <div className="w-full bg-[#49000E] p-4 rounded-xl border border-[#C8A35C]/30 text-xs text-[#C8A35C] font-semibold">
-                  ✓ Entrada Franca e Acolhimento Especial
+                <div>
+                  <span className="text-[11px] font-bold tracking-wider text-[#C8A35C] uppercase block mb-1">
+                    MINISTRAÇÃO
+                  </span>
+                  <p className="text-xs text-[#EDE8E0]/80 font-sans">{data.invite.ministry}</p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ===================== FAQ SECTION ===================== */}
-      <section className="py-20 bg-[#F6F3EE]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-14">
-            <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#49000E] bg-[#FFDADA] px-3.5 py-1 rounded-full">
-              Dúvidas Frequentes
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#49000E]">
-              Perguntas Frequentes
-            </h2>
-            <div className="w-16 h-1 bg-[#C8A35C] mx-auto rounded-full" />
-          </div>
-
-          <div className="space-y-4">
-            {data.faqs.map((faq, idx) => {
-              const isOpen = openFaqIndex === idx;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl border border-[#EDE8E0] overflow-hidden transition-all shadow-sm"
-                >
-                  <button
-                    onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                    className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-serif text-base sm:text-lg font-bold text-[#49000E] cursor-pointer"
-                  >
-                    <span className="flex items-center gap-3">
-                      <HelpCircle className="w-5 h-5 text-[#C8A35C] flex-shrink-0" />
-                      <span>{faq.question}</span>
-                    </span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-[#49000E] transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  {isOpen && (
-                    <div className="px-6 pb-5 pt-1 text-sm text-[#564242] leading-relaxed border-t border-[#EDE8E0]/60">
-                      {faq.answer}
-                    </div>
-                  )}
+            {/* Right Card */}
+            <div className="lg:col-span-5">
+              <div className="bg-[#FCF9F4] text-[#181A29] p-8 sm:p-10 rounded-2xl shadow-2xl space-y-6">
+                <div>
+                  <span className="text-[10px] font-bold tracking-widest text-[#767676] uppercase block">
+                    {data.invite.contactCard.boxTag}
+                  </span>
+                  <h3 className="font-serif text-2xl font-bold text-[#49000E] mt-1">
+                    {data.invite.contactCard.title}
+                  </h3>
+                  <p className="text-xs text-[#564242] mt-1 font-sans">
+                    {data.invite.contactCard.notice}
+                  </p>
                 </div>
-              );
-            })}
+
+                <div className="space-y-3 text-xs text-[#49000E] font-medium pt-2 border-t border-[#EDE8E0]">
+                  <div className="flex items-center gap-3">
+                    <Mail className="w-4 h-4 text-[#49000E] flex-shrink-0" />
+                    <span>{data.invite.contactCard.email}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Phone className="w-4 h-4 text-[#49000E] flex-shrink-0" />
+                    <span>{data.invite.contactCard.phone}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Clock className="w-4 h-4 text-[#49000E] flex-shrink-0" />
+                    <span>{data.invite.contactCard.hours}</span>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <a
+                    href="https://wa.me/5582999999999"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-[#49000E] hover:bg-[#6B111F] text-white font-bold text-xs uppercase tracking-wider py-4 rounded-lg shadow transition-all block text-center"
+                  >
+                    {data.invite.contactCard.buttonText}
+                  </a>
+                  <span className="text-[10px] font-bold tracking-widest text-[#767676] uppercase block text-center mt-3">
+                    {data.invite.contactCard.groupName}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ===================== FOOTER ===================== */}
-      <footer className="bg-[#F6F3EE] border-t border-[#EDE8E0] text-[#181A29] py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <footer className="bg-[#F6F3EE] border-t border-[#EDE8E0] text-[#181A29] py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
-            {/* Logo and brief */}
-            <div className="md:col-span-5 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="relative w-10 h-10">
-                  <Image
-                    src="/assets/logo.png"
-                    alt="Logo Somos Um"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-serif text-lg font-bold text-[#49000E] tracking-wider">
-                    SOMOS UM
-                  </span>
-                  <span className="text-[10px] text-[#767676] tracking-widest uppercase">
-                    Festividade de Dezembro
-                  </span>
-                </div>
+            {/* Col 1: Logo & Manifesto Quote */}
+            <div className="md:col-span-4 space-y-4">
+              <div>
+                <span className="font-serif text-2xl font-bold tracking-widest text-[#49000E] block">
+                  SOMOS UM
+                </span>
+                <span className="text-[9px] tracking-[0.25em] text-[#767676] uppercase font-sans font-medium block">
+                  DANÇA TEATRAL • IGREJA ELOHIM
+                </span>
               </div>
-
-              <p className="text-xs text-[#564242] leading-relaxed max-w-sm">
-                Igreja Elohim — Penedo / AL. Uma celebração de fé, unidade e adoração ao nosso Deus.
+              <p className="font-serif italic text-sm text-[#49000E] leading-relaxed max-w-sm">
+                {data.footer.quote}
               </p>
             </div>
 
-            {/* Quick Links */}
+            {/* Col 2: Repertório */}
             <div className="md:col-span-3 space-y-3">
-              <span className="font-serif text-sm font-bold text-[#49000E] uppercase tracking-wider block">
-                Navegação Rápida
+              <span className="text-xs font-bold uppercase tracking-wider text-[#49000E] block">
+                REPERTÓRIO & ATOS
               </span>
-              <ul className="space-y-2 text-xs text-[#564242]">
-                <li>
-                  <button onClick={() => scrollToSection("hero")} className="hover:text-[#49000E]">
-                    Início
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => scrollToSection("sobre")} className="hover:text-[#49000E]">
-                    Sobre a Festividade
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => scrollToSection("programacao")}
-                    className="hover:text-[#49000E]"
-                  >
-                    Cronograma dos Dias
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => scrollToSection("preletores")}
-                    className="hover:text-[#49000E]"
-                  >
-                    Preletores Convidados
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => scrollToSection("inscricao")}
-                    className="hover:text-[#49000E]"
-                  >
-                    Inscrição Gratuita
-                  </button>
-                </li>
+              <ul className="space-y-2 text-xs text-[#564242] font-sans">
+                {data.footer.repertoireLinks.map((link) => (
+                  <li key={link}>
+                    <button
+                      onClick={() => scrollToSection("obras")}
+                      className="hover:text-[#49000E] transition-colors cursor-pointer"
+                    >
+                      {link}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
 
-            {/* Event Dates & Church Info */}
-            <div className="md:col-span-4 space-y-3">
-              <span className="font-serif text-sm font-bold text-[#49000E] uppercase tracking-wider block">
-                Informações do Evento
+            {/* Col 3: Expediente */}
+            <div className="md:col-span-3 space-y-2 text-xs text-[#564242] font-sans">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#49000E] block mb-3">
+                EXPEDIENTE & MINISTÉRIO
               </span>
-              <div className="space-y-2 text-xs text-[#564242]">
-                <p>
-                  <strong>Data:</strong> Dezembro 2026
-                </p>
-                <p>
-                  <strong>Local:</strong> Igreja Elohim
-                </p>
-                <p>
-                  <strong>Cidade:</strong> Penedo / AL
-                </p>
-                <p>
-                  <strong>Entrada:</strong> 100% Gratuita
-                </p>
-              </div>
+              <p>
+                <strong className="text-[#49000E]">Direção Cênica:</strong> {data.footer.direction}
+              </p>
+              <p>
+                <strong className="text-[#49000E]">Corpo de Baile:</strong> {data.footer.cast}
+              </p>
+              <p>
+                <strong className="text-[#49000E]">Laboratório:</strong> {data.footer.labs}
+              </p>
+              <p className="text-[11px] text-[#767676] pt-1">{data.footer.subNote}</p>
+            </div>
+
+            {/* Col 4: Contato & Imprensa */}
+            <div className="md:col-span-2 space-y-3 text-xs text-[#564242] font-sans">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#49000E] block">
+                CONTATO & IMPRENSA
+              </span>
+              <p className="hover:text-[#49000E] transition-colors cursor-pointer">
+                {data.footer.email}
+              </p>
+              <p className="hover:text-[#49000E] transition-colors cursor-pointer">
+                {data.footer.pressEmail}
+              </p>
+              <button
+                onClick={() => scrollToSection("grupo")}
+                className="text-[#49000E] font-bold text-[11px] uppercase tracking-wider hover:underline block pt-2 cursor-pointer flex items-center gap-1"
+              >
+                <span>CONHEÇA O GRUPO</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
             </div>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-[#EDE8E0] flex flex-col sm:flex-row items-center justify-between text-xs text-[#767676] gap-4">
-            <p>© 2026 Festividade Somos Um • Igreja Elohim. Todos os direitos reservados.</p>
-            <p className="flex items-center gap-1">
-              <span>Feito para visualização na Vercel</span>
-            </p>
+          <div className="pt-8 border-t border-[#EDE8E0] flex flex-col sm:flex-row items-center justify-between text-xs text-[#767676] gap-4 font-sans">
+            <p>■ © 2026 SOMOS UM • Grupo de dança Teatral. Todos os direitos reservados.</p>
+            <div className="flex items-center gap-6 text-[11px] font-bold uppercase tracking-wider text-[#564242]">
+              <span className="hover:text-[#49000E] cursor-pointer">ESTATUTO ARTÍSTICO</span>
+              <span className="hover:text-[#49000E] cursor-pointer">PRIVACIDADE</span>
+              <span className="hover:text-[#49000E] cursor-pointer">ITINERÁRIO NACIONAL</span>
+            </div>
           </div>
         </div>
       </footer>

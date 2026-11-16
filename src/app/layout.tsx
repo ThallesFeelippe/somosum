@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Somos Um — Festividade de Dezembro",
+  title: "Somos Um — Dança Teatral • Igreja Elohim",
   description:
-    "Uma experiência de fé, comunhão e renovação espiritual. Junte-se a nós na Festividade de Dezembro.",
+    "Somos Um: dança e teatro a serviço do Reino. Eis que é chegada a hora. Festividade de Dezembro 2026 em Penedo / AL.",
   icons: {
     icon: "/assets/logo.png",
   },
   openGraph: {
-    title: "Somos Um — Festividade de Dezembro",
-    description: "Festividade de Dezembro: Uma só voz, um só coração, um só propósito.",
+    title: "Somos Um — Dança Teatral • Igreja Elohim",
+    description: "Eis que é chegada a hora. Dança e teatro a serviço do Reino.",
     images: ["/assets/hero-banner.jpg"],
   },
 };
@@ -26,7 +26,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
