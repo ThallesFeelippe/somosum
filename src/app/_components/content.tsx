@@ -93,10 +93,10 @@ export function ContentComponent({ data }: ContentProps) {
             onClick={() => scrollToSection("hero")}
             className="flex flex-col cursor-pointer group"
           >
-            <span className="font-serif text-2xl sm:text-3xl font-bold tracking-widest text-white group-hover:text-[#C8A35C] transition-colors leading-none">
+            <span className="font-serif text-3xl sm:text-[43px] font-bold tracking-widest text-white group-hover:text-[#C8A35C] transition-colors leading-none">
               {data.nav.title}
             </span>
-            <span className="text-[10px] sm:text-[11px] tracking-[0.22em] text-[#C8A35C] font-sans font-semibold uppercase mt-1.5 leading-none">
+            <span className="text-[10px] sm:text-[11px] tracking-[0.22em] text-[#C8A35C] font-sans font-semibold uppercase mt-2 leading-none">
               {data.nav.subtitle}
             </span>
           </div>
